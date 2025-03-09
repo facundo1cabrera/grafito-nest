@@ -1,12 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { OpenAI, toFile } from "openai";
-import { whisperResponse } from "./interfaces";
 
 @Injectable()
 export class AudioParsingService {
   async generateTranscript(
     audioFile: Express.Multer.File,
-  ): Promise<whisperResponse> {
+  ): Promise<string> {
     if (!process.env.OPENAI_API_KEY)
       throw new Error("OPENAI_API_KEY is undefined");
 
@@ -22,6 +21,6 @@ export class AudioParsingService {
       language: "es",
     });
 
-    return transcription;
+    return transcription.text;
   }
 }
