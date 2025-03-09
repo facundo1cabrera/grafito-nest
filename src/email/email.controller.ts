@@ -7,7 +7,7 @@ export class EmailController {
   constructor(private readonly EmailService: EmailService) {}
 
   @Post()
-  sendEmail(): boolean {
+  async sendEmail(): Promise<boolean> {
     return this.EmailService.sendEmail(
         "cabrera.franco@yahoo.com.ar",
         "Email subject",
