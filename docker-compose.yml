@@ -1,16 +1,14 @@
 services:
   grafitodb:
     image: postgres:15
+    platform: linux/arm64/v8
     container_name: grafitodb
     restart: always
     environment:
-      POSTGRES_USER: grafito_local
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_DB: grafitodb
     volumes:
-      - grafito_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
-
-volumes:
-  grafito_data:
+      - '5432:5432'
