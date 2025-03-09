@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { User } from '@prisma/client';
-
+import { EmailService } from './email/email.service';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { z } from 'zod';
 import OpenAI from 'openai';
+import { reportSchema } from './zod.schemas';
 
 // this is the curated transcript
 const prompt = `Reclutador: ¡Hola, Carlos! ¿Cómo andas?
@@ -45,36 +46,7 @@ export class AppController {
           },
           { role: 'user', content: prompt },
         ],
-        response_format: zodResponseFormat(
-          z.object({
-            interview: z.object({
-              id: z.string(),
-              candidateName: z.string(),
-              position: z.string(),
-              date: z.string(),
-              duration: z.number().optional(),
-              zoomRecordingUrl: z.string().optional(),
-            }),
-            analysis: z.object({
-              transcript: z.string(),
-              summary: z.string(),
-              technicalScore: z.number(),
-              communicationScore: z.number(),
-              problemSolvingScore: z.number(),
-              keyTakeaways: z.array(z.string()),
-              technicalConcepts: z.array(z.string()),
-              strengths: z.array(z.string()),
-              weaknesses: z.array(z.string()),
-              redFlags: z.array(z.string()).optional(),
-            }),
-            recommendations: z.object({
-              overallVerdict: z.string(),
-              nextSteps: z.string(),
-              suggestedFollowUpQuestions: z.array(z.string()).optional(),
-            }),
-          }),
-          'report',
-        ),
+        response_format: zodResponseFormat(reportSchema, 'report'),
       });
 
       return response.choices[0].message.content;
