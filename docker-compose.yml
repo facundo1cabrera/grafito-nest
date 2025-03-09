@@ -1,6 +1,6 @@
 services:
   grafitodb:
-    image: postgis/postgis:15-master
+    image: postgres:15
     container_name: grafitodb
     restart: always
     environment:
