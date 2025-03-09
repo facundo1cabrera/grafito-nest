@@ -82,6 +82,10 @@ export class AppController {
 
     const report = await this.report(transcript);
 
+    if (!report) {
+      return { error: 'Failed to generate report' };
+    }
+
     const email = await this.emailService.sendEmail(
       'lucasbrumatti99@gmail.com',
       'Interview Report',
