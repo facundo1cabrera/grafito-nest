@@ -40,42 +40,45 @@ export class EmailService {
       html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
         <h1 style="color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px;">
-          Interview Report
+          Reporte de entrevista
         </h1>
 
         <!-- Candidate Information -->
         <div style="padding: 20px; background: #f9f9f9; border-radius: 5px; margin-bottom: 20px;">
-          <h2 style="color: #2c5282; margin-bottom: 15px;">Candidate Information</h2>
-          <p><strong>Name:</strong> ${report.interview.candidateName}</p>
-          <p><strong>Position:</strong> ${report.interview.position}</p>
-          <p><strong>Date:</strong> ${report.interview.date}</p>
-          ${report.interview.duration ? `<p><strong>Duration:</strong> ${report.interview.duration} minutes</p>` : ''}
+          <h2 style="color: #2c5282; margin-bottom: 15px;">Información del candidato</h2>
+          <p><strong>Nombre:</strong> ${report.interview.candidateName}</p>
+          <p><strong>Puesto:</strong> ${report.interview.position}</p>
+          <p><strong>Fecha:</strong> ${new Date().toLocaleDateString('es-ES', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+          })}</p>
         </div>
 
         <!-- Scores -->
         <div style="padding: 20px; background: #f9f9f9; border-radius: 5px; margin-bottom: 20px;">
-          <h2 style="color: #2c5282; margin-bottom: 15px;">Performance Scores</h2>
+          <h2 style="color: #2c5282; margin-bottom: 15px;">Puntuaciones de rendimiento</h2>
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
             <div style="text-align: center; padding: 10px; background: #fff; border-radius: 4px;">
               <div style="font-size: 24px; font-weight: bold; color: #2c5282;">${report.analysis.technicalScore}/10</div>
-              <div>Technical</div>
+              <div>Técnico</div>
             </div>
             <div style="text-align: center; padding: 10px; background: #fff; border-radius: 4px;">
               <div style="font-size: 24px; font-weight: bold; color: #2c5282;">${report.analysis.communicationScore}/10</div>
-              <div>Communication</div>
+              <div>Comunicación</div>
             </div>
             <div style="text-align: center; padding: 10px; background: #fff; border-radius: 4px;">
               <div style="font-size: 24px; font-weight: bold; color: #2c5282;">${report.analysis.problemSolvingScore}/10</div>
-              <div>Problem Solving</div>
+              <div>Resolución de problemas</div>
             </div>
           </div>
         </div>
 
         <!-- Technical Assessment -->
         <div style="padding: 20px; background: #f9f9f9; border-radius: 5px; margin-bottom: 20px;">
-          <h2 style="color: #2c5282; margin-bottom: 15px;">Technical Assessment</h2>
-          <p><strong>Technical Concepts:</strong> ${report.analysis.technicalConcepts.join(', ')}</p>
-          <h3 style="color: #2c5282; margin-top: 15px;">Key Takeaways</h3>
+          <h2 style="color: #2c5282; margin-bottom: 15px;">Evaluación técnica</h2>
+          <p><strong>Conceptos técnicos:</strong> ${report.analysis.technicalConcepts.join(', ')}</p>
+          <h3 style="color: #2c5282; margin-top: 15px;">Puntos clave</h3>
           <ul style="margin-top: 10px;">
             ${report.analysis.keyTakeaways.map((point) => `<li>${point}</li>`).join('')}
           </ul>
@@ -85,13 +88,13 @@ export class EmailService {
         <div style="padding: 20px; background: #f9f9f9; border-radius: 5px; margin-bottom: 20px;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div>
-              <h3 style="color: #2c5282;">Strengths</h3>
+              <h3 style="color: #2c5282;">Fortalezas</h3>
               <ul style="margin-top: 10px;">
                 ${report.analysis.strengths.map((strength) => `<li>${strength}</li>`).join('')}
               </ul>
             </div>
             <div>
-              <h3 style="color: #2c5282;">Areas for Improvement</h3>
+              <h3 style="color: #2c5282;">Áreas para mejorar</h3>
               <ul style="margin-top: 10px;">
                 ${report.analysis.weaknesses.map((weakness) => `<li>${weakness}</li>`).join('')}
               </ul>
@@ -101,14 +104,14 @@ export class EmailService {
 
         <!-- Summary & Recommendations -->
         <div style="padding: 20px; background: #f9f9f9; border-radius: 5px; margin-bottom: 20px;">
-          <h2 style="color: #2c5282; margin-bottom: 15px;">Summary & Recommendations</h2>
-          <p><strong>Summary:</strong> ${report.analysis.summary}</p>
+          <h2 style="color: #2c5282; margin-bottom: 15px;">Resumen y recomendaciones</h2>
+          <p><strong>Resumen:</strong> ${report.analysis.summary}</p>
           <p style="margin-top: 15px;"><strong>Verdict:</strong> ${report.recommendations.overallVerdict}</p>
           <p style="margin-top: 15px;"><strong>Next Steps:</strong> ${report.recommendations.nextSteps}</p>
           ${
             report.recommendations.suggestedFollowUpQuestions
               ? `
-            <h3 style="color: #2c5282; margin-top: 15px;">Suggested Follow-up Questions</h3>
+            <h3 style="color: #2c5282; margin-top: 15px;">Preguntas sugeridas para seguimiento</h3>
             <ul style="margin-top: 10px;">
               ${report.recommendations.suggestedFollowUpQuestions.map((question) => `<li>${question}</li>`).join('')}
             </ul>
@@ -118,7 +121,7 @@ export class EmailService {
         </div>
 
         <div style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;">
-          Generated by Grafito
+          Generado por Grafito
         </div>
       </div>
     `,
