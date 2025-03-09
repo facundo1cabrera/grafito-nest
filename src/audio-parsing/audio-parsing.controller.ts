@@ -1,18 +1,15 @@
-import { Controller, Get, Post } from '@nestjs/common';
-import { AudioParsingService } from './audio-parsing.service';
-import { UseInterceptors, UploadedFile } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Controller, Post } from "@nestjs/common";
+import { AudioParsingService } from "./audio-parsing.service";
+import { UseInterceptors, UploadedFile } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
 
-
-@Controller('audio')
+@Controller("audio")
 export class AudioParsingController {
   constructor(private readonly AudioParsingService: AudioParsingService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor("file"))
   async generateTranscript(@UploadedFile() file: Express.Multer.File) {
-
     return this.AudioParsingService.generateTranscript(file);
-
   }
 }

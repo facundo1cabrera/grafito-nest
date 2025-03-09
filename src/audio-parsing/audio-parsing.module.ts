@@ -1,11 +1,9 @@
-import { Module } from '@nestjs/common';
-import { AudioParsingController } from './audio-parsing.controller';
-import { AudioParsingService } from './audio-parsing.service';
+import { Module } from "@nestjs/common";
+import { AudioParsingController } from "./audio-parsing.controller";
+import { AudioParsingService } from "./audio-parsing.service";
 @Module({
-    imports: [],
-    controllers: [AudioParsingController],
-    providers: [AudioParsingService],
-  })
-export class AudioParsingModule {
-
-}
+  imports: [],
+  controllers: [AudioParsingController],
+  providers: [AudioParsingService],
+})
+export class AudioParsingModule {}
